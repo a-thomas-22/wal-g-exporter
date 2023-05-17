@@ -13,8 +13,16 @@ RUN pyinstaller --name exporter \
 # Build final image
 FROM debian:11.6-slim
 
+ARG TARGETARCH
+
+RUN if [ "${TARGETARCH}" = "arm64" ]; then \
+      export WALG_ARCH="aarch64"; \
+    else \
+      export WALG_ARCH="${TARGETARCH}"; \
+    fi
+
 COPY --from=exporter-builder /usr/src/wal-g-prometheus-exporter /usr/bin/
-ADD https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu-20.04-amd64.tar.gz /usr/bin/
+ADD https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz /usr/bin/
 RUN apt-get update && \
     apt-get install -y ca-certificates daemontools && \
     apt-get upgrade -y -q && \
