@@ -19,7 +19,7 @@ RUN if [ "${TARGETARCH}" = "arm64" ]; then \
     else \
       export WALG_ARCH="${TARGETARCH}"; \
     fi && \
-    wget -O /wal-g-pg-ubuntu-20.04.tar.gz https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz
+    wget -O /wal-g-pg-ubuntu-20.04.tar.gz https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu20.04-${WALG_ARCH}.tar.gz
 
 # Build final image
 FROM debian:11.6-slim
@@ -36,7 +36,7 @@ RUN apt-get update && \
 RUN cd /usr/bin/ && \
     tar -zxvf wal-g-pg-ubuntu-20.04.tar.gz && \
     rm wal-g-pg-ubuntu-20.04.tar.gz && \
-    mv wal-g-pg-ubuntu-20.04-* wal-g
+    mv wal-g-pg-ubuntu20.04-* wal-g
 
 COPY scripts/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
