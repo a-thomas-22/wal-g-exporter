@@ -22,7 +22,7 @@ RUN if [ "${TARGETARCH}" = "arm64" ]; then \
     fi && echo "WALG_ARCH=${WALG_ARCH}" >> /etc/environment
 
 RUN . /etc/environment && \
-    wget -O /usr/bin/wal-g-pg-ubuntu-20.04.tar.gz https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz
+    curl -L -o /usr/bin/wal-g-pg-ubuntu-20.04.tar.gz https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz
 
 COPY --from=exporter-builder /usr/src/wal-g-prometheus-exporter /usr/bin/
 
