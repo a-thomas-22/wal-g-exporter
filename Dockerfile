@@ -15,11 +15,11 @@ FROM debian:11.6-slim as downloader
 ARG TARGETARCH
 RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 RUN if [ "${TARGETARCH}" = "arm64" ]; then \
-      export WALG_ARCH="aarch64"; \
+    export WALG_ARCH="aarch64"; \
     else \
-      export WALG_ARCH="${TARGETARCH}"; \
+    export WALG_ARCH="${TARGETARCH}"; \
     fi && \
-    wget -O /wal-g-pg-ubuntu-20.04.tar.gz https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu20.04-${WALG_ARCH}.tar.gz
+    wget -O /wal-g-pg-ubuntu-20.04.tar.gz https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz
 
 # Build final image
 FROM debian:11.6-slim
